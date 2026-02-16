@@ -24,16 +24,15 @@ POST http://localhost:8080/api/users
 Content-Type: application/json
 
 {
-"username": "john_doe",
-"email": "john@example.com",
-"fullName": "John Doe",
+"username": "epa_ishimwe",
+"email": "epa@example.com",
+"fullName": "Epa Ishimwe",
 "age": 28,
-"country": "USA",
+"country": "Rwanda",
 "bio": "Developer",
 "active": true
 }
 
-text
 
 ### Response format
 All responses follow the structure:
