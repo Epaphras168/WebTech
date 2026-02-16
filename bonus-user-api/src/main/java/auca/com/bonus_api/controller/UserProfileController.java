@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/users")
 public class UserProfileController {
 
-    // In-memory list to store user profiles
+
     private List<UserProfile> userList = new ArrayList<>();
 
-    // Constructor to initialize sample data
+    // sample data
     public UserProfileController() {
         userList.add(new UserProfile(1L, "john_doe", "john@example.com", "John Doe",
                 28, "USA", "Software developer", true));
@@ -68,7 +68,7 @@ public class UserProfileController {
         // Generate a new ID (simple: max id + 1)
         Long newId = userList.stream().mapToLong(UserProfile::getUserId).max().orElse(0) + 1;
         newUser.setUserId(newId);
-        // Ensure new user is active by default? You can decide; here we keep what client sends.
+        // Ensure new user is active by default
         userList.add(newUser);
         ApiResponse<UserProfile> response = createResponse(true, "User profile created successfully", newUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -103,7 +103,7 @@ public class UserProfileController {
         }
     }
 
-    // ------------------- SEARCH -------------------
+    // Searching
     // GET /api/users/search?username=...&country=...&minAge=...&maxAge=...
     @GetMapping("/search")
     public ResponseEntity<ApiResponse<List<UserProfile>>> searchUsers(
@@ -138,7 +138,7 @@ public class UserProfileController {
         return ResponseEntity.ok(createResponse(true, "Search completed", results));
     }
 
-    // ------------------- ACTIVATE/DEACTIVATE -------------------
+    // ACTIVATE/DEACTIVATE
     // PATCH /api/users/{userId}/status?active=true/false
     @PatchMapping("/{userId}/status")
     public ResponseEntity<ApiResponse<UserProfile>> setUserActive(@PathVariable Long userId,
