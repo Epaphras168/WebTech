@@ -1,0 +1,5 @@
+auca/com/question3_restaurant_api/model/MenuItem.class
+auca/com/question3_restaurant_api/service/MenuService.class
+auca/com/question3_restaurant_api/repository/MenuItemRepository.class
+auca/com/question3_restaurant_api/controller/MenuController.class
+auca/com/question3_restaurant_api/Question3RestaurantApiApplication.class

@@ -1,12 +1,23 @@
 package auca.com.question3_restaurant_api.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class MenuItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
     private Double price;
     private String category; // e.g., "Appetizer", "Main Course", etc.
     private boolean available;
+
+    public MenuItem() {
+    }
 
     public MenuItem(Long id, String name, String description, Double price, String category, boolean available) {
         this.id = id;
