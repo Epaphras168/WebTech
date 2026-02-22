@@ -1,76 +1,65 @@
 package auca.com.question1_library_api.controller;
 
 import auca.com.question1_library_api.model.Book;
+import auca.com.question1_library_api.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity; 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
 
-    // storing the books
-    private List<Book> bookList = new ArrayList<>();
+    @Autowired
+    private BookService bookService;
 
-    // initialize sample data
-    public BookController() {
-
-        bookList.add(new Book(1L, "The Great Gatsby", "F. Scott Fitzgerald", "9780743273565", 1925));
-        bookList.add(new Book(2L, "To Kill a Mockingbird", "Harper Lee", "9780061120084", 1960));
-        bookList.add(new Book(3L, "1984", "George Orwell", "9780451524935", 1949));
-    }
-
-    // GET /api/books - return all books
     @GetMapping
     public List<Book> getAllBooks() {
-        return bookList;
+        return bookService.getAllBooks();
     }
 
-    // GET /api/books/{id} - return book by ID
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id) {
-
-        Book book = bookList.stream()
-                .filter(b -> b.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-        if (book != null) {
-            return ResponseEntity.ok(book);  // HTTP 200
-        } else {
-            return ResponseEntity.notFound().build(); // HTTP 404
-        }
+        return bookService.getBookById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    // GET /api/books/search?title={title} - search books by title (case-insensitive, partial match)
     @GetMapping("/search")
     public List<Book> searchBooksByTitle(@RequestParam String title) {
-        return bookList.stream()
-                .filter(b -> b.getTitle().toLowerCase().contains(title.toLowerCase()))
-                .collect(Collectors.toList());
+        return bookService.searchBooksByTitle(title);
     }
 
-    // POST /api/books - add a new book
     @PostMapping
     public ResponseEntity<Book> addBook(@RequestBody Book newBook) {
-        // Assign a new ID (simple approach: max id + 1)
-        Long newId = bookList.stream().mapToLong(Book::getId).max().orElse(0) + 1;
-        newBook.setId(newId);
-        bookList.add(newBook);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newBook); // HTTP 201
+        Book savedBook = bookService.saveBook(newBook);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
     }
 
-    // DELETE /api/books/{id} - delete a book by ID
+    @PutMapping("/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book updatedBook) {
+        return bookService.getBookById(id)
+                .map(book -> {
+                    book.setTitle(updatedBook.getTitle());
+                    book.setAuthor(updatedBook.getAuthor());
+                    book.setIsbn(updatedBook.getIsbn());
+                    book.setPublicationYear(updatedBook.getPublicationYear());
+                    Book savedBook = bookService.saveBook(book);
+                    return ResponseEntity.ok(savedBook);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
-        boolean removed = bookList.removeIf(b -> b.getId().equals(id));
-        if (removed) {
-            return ResponseEntity.noContent().build(); // HTTP 204
+        if (bookService.getBookById(id).isPresent()) {
+            bookService.deleteBook(id);
+            return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.notFound().build(); // HTTP 404
+            return ResponseEntity.notFound().build();
         }
     }
 }

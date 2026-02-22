@@ -1,3 +1,5 @@
-com/example/libraryapi/controller/BookController.class
+auca/com/question1_library_api/controller/BookController.class
 auca/com/question1_library_api/Question1LibraryApiApplication.class
-com/example/libraryapi/model/Book.class
+auca/com/question1_library_api/model/Book.class
+auca/com/question1_library_api/service/BookService.class
+auca/com/question1_library_api/repository/BookRepository.class
