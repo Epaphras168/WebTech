@@ -1,0 +1,5 @@
+auca/com/question2_student_api/repository/StudentRepository.class
+auca/com/question2_student_api/model/Student.class
+auca/com/question2_student_api/Question2StudentApiApplication.class
+auca/com/question2_student_api/service/StudentService.class
+auca/com/question2_student_api/controller/StudentController.class
