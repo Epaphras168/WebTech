@@ -1,7 +1,13 @@
 package auca.com.bonus_api.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "user_profiles")
 public class UserProfile {
-    private Long userId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String username;
     private String email;
     private String fullName;
@@ -14,9 +20,9 @@ public class UserProfile {
     public UserProfile() {}
 
     // All-arg constructor
-    public UserProfile(Long userId, String username, String email, String fullName,
+    public UserProfile(Long id, String username, String email, String fullName,
                        int age, String country, String bio, boolean active) {
-        this.userId = userId;
+        this.id = id;
         this.username = username;
         this.email = email;
         this.fullName = fullName;
@@ -26,9 +32,9 @@ public class UserProfile {
         this.active = active;
     }
 
-    // Getters and setters (generate via IDE or manually)
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
+    // Getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }

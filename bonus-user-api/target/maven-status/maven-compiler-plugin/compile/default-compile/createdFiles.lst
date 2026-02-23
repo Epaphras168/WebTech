@@ -1,0 +1,6 @@
+auca/com/bonus_api/service/UserProfileService.class
+auca/com/bonus_api/repository/UserProfileRepository.class
+auca/com/bonus_api/BonusApiApplication.class
+auca/com/bonus_api/dto/ApiResponse.class
+auca/com/bonus_api/controller/UserProfileController.class
+auca/com/bonus_api/model/UserProfile.class
