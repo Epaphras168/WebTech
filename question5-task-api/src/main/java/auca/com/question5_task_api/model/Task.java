@@ -1,28 +1,28 @@
 package auca.com.question5_task_api.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tasks")
 public class Task {
-    private Long taskId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String title;
     private String description;
     private boolean completed;
     private String priority; // "LOW", "MEDIUM", "HIGH"
     private String dueDate;   // "YYYY-MM-DD"
 
-    public Task(Long taskId, String title, String description, boolean completed, String priority, String dueDate) {
-        this.taskId = taskId;
-        this.title = title;
-        this.description = description;
-        this.completed = completed;
-        this.priority = priority;
-        this.dueDate = dueDate;
+    public Task() {
     }
 
-    public Long getTaskId() {
-        return taskId;
+    public Long getId() {
+        return id;
     }
 
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
