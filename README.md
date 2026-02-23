@@ -5,5 +5,6 @@ Any assignment with multiple question will have subfolders within the correspond
 
 ## Assignment 1 => servlet_26757_monday
 ## Assignment 2 => restfulAPI_2675_monday
+## Assignment 3 => restfulAPI_JPA_2675_monday
 
 
